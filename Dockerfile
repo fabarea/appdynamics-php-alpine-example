@@ -53,9 +53,12 @@ RUN tar -xjf ${AGENT_PATH}/appdynamics-php-agent-x64-linux-${AGENT_VERSION}.tar.
 COPY agent-install.sh /agent-install.sh
 RUN bash /agent-install.sh
 
+#RUN apk add --no-cache \
+#    gcompat \
+#    libstdc++
 
-RUN apk add --no-cache \
-    gcompat \
-    libstdc++
+RUN curl -fsSL https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r1/glibc-2.35-r1.apk -o /tmp/glibc.apk \
+    && apk add --allow-untrusted /tmp/glibc.apk \
+    && rm -f /tmp/glibc.apk
 
 CMD ["bash"]

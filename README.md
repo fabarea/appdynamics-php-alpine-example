@@ -54,9 +54,9 @@ Troubleshooting
 It looks we are missing libstdc. As a random guess, we could add the compatibility package `gcompat` and `libstdc++` to the image.
 
 ```shell
-RUN apk add --no-cache \
-    gcompat \
-    libstdc++
+RUN curl -fsSL https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r1/glibc-2.35-r1.apk -o /tmp/glibc.apk \
+    && apk add --allow-untrusted /tmp/glibc.apk \
+    && rm -f /tmp/glibc.apk
 ```
 
 We then get
